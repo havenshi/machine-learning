@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import pandas as pd
-from pandas import ExcelWriter
 
 # delete beginning 
 lines = open('u_ex170703_x.log').readlines()
@@ -12,13 +11,12 @@ user_cols = ['date', 'time', 's-ip', 'cs-method', 'cs-uri-stem', 'cs-uri-query',
 # parce columns
 df = pd.read_table('newfile1.txt', sep=" ", names = user_cols)
 
+# filter row start with product/company
+df_filter = df[df['cs-uri-stem'].str.startswith('/company/')]
+
 # group by col
-result = df.groupby('c-ip-1').size().sort_values(ascending=False).reset_index(name='count')
+result = df_filter.groupby('cs-uri-stem').size().sort_values(ascending=False).reset_index(name='count')
 
-# new file.xlsx
-writer = ExcelWriter('file.xlsx')
-result.to_excel(writer)
-writer.save()
-
-# DF TO CSV
-result.to_csv('v.csv', sep=',')
+# write dataframe in a text file
+f = open("file.txt", "w")
+result.to_csv(f)
