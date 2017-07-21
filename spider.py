@@ -17,7 +17,7 @@ def spider(ip_param):
         wb_data = requests.get(url)
     soup = BeautifulSoup(wb_data.text, "lxml")
     text_json = json.loads(soup.text)
-    if text_json['code'] == 0:
+    if text_json['code'] == 0:  # parse search result from url
         print(text_json)
         country = text_json['data']['country']
         region = text_json['data']['region']
@@ -37,7 +37,7 @@ def spider(ip_param):
         return ['', '', '', '']
 
 
-def read_excel(file_name):
+def read_excel(file_name):  # read ip address
     work_book = xlrd.open_workbook(r"{}".format(file_name))
     first_sheet = work_book.sheet_by_index(0)
     ret = []
@@ -46,7 +46,7 @@ def read_excel(file_name):
         ret.append(row)
     return ret
 
-def find_line_numbers(file_name):
+def find_line_numbers(file_name):  # read index
     work_book = xlrd.open_workbook(r"{}".format(file_name))
     row_numbers = work_book.sheet_by_index(0).nrows
     return row_numbers
@@ -70,7 +70,7 @@ if __name__ == '__main__':
         time.sleep(1+ts)
         ip = row[1]
         count = row[2]
-        temp_list = spider(ip)
+        temp_list = spider(ip)  # write search result, index, ip into table
         temp_list.insert(0, count)
         temp_list.insert(0, ip)
         print(temp_list)
