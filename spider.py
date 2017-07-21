@@ -13,7 +13,7 @@ def spider(ip_param):
     try:
         wb_data = requests.get(url)
     except Exception:
-        time.sleep(random.randint(1,5))
+        time.sleep(random.random()*5)
         wb_data = requests.get(url)
     soup = BeautifulSoup(wb_data.text, "lxml")
     text_json = json.loads(soup.text)
