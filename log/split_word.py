@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from snownlp import SnowNLP
 
-with open('company_title.txt', 'r') as myfile:
+with open('company_title.txt', 'r', encoding='utf-8') as myfile:
     text = myfile.read()  # read file in form of string
 s = SnowNLP(text)
 
