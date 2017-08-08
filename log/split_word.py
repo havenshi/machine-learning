@@ -15,6 +15,8 @@ for item in s.words:  # s.words is array of split words
 # sort hashing
 key = sorted(hashing, key=hashing.get)[::-1]
 value = sorted(hashing.values())[::-1]
+print(value)
+print (key)
 
 # write key(word) and value(frequency) to a new file
 newkey = np.array(key)
